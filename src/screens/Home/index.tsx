@@ -1,9 +1,13 @@
-import { View } from "react-native";
+import React from "react";
+import { Header } from "@components/Header";
+import { Percent } from "@components/Percent";
+import { Container } from "./styles";
 
 export function Home() {
     return (
-        <View>
-
-        </View>
+        <Container>
+            <Header />
+            <Percent />
+        </Container>
     );
 }
