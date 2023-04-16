@@ -1,5 +1,6 @@
 import React from "react";
-import { ArrowIcon, BackButton, ButtonTypeStyleProps, Container, PercentText, Text } from "./styles";
+import { ArrowIcon, BackButton, ButtonTypeStyleProps, Container } from "./styles";
+import { PercentText } from "@components/PercentText";
 import { TouchableOpacityProps } from "react-native";
 
 type Props = TouchableOpacityProps & {
@@ -20,12 +21,10 @@ export function Percent({ type = "PRIMARY", percent, text, ...rest}: Props) {
                     type={type}
                 />
             </BackButton>
-            <PercentText>
-                {percent}%
-            </PercentText>
-            <Text>
-                {text}
-            </Text>
+            <PercentText 
+                percent={percent}
+                text={text}
+            />
         </Container>
     );
 }

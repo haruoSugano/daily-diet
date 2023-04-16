@@ -1,5 +1,5 @@
 import { TouchableOpacity } from "react-native";
-import styled, { css } from "styled-components/native";
+import styled from "styled-components/native";
 
 import { ArrowUpRight } from "phosphor-react-native";
 
@@ -27,23 +27,4 @@ export const BackButton = styled(TouchableOpacity)`
     margin-top: 5px;
     margin-right: 5px;
     align-self: flex-end;
-`;
-
-export const PercentText = styled.Text`
-    ${({ theme }) => css`
-        font-size: ${({ theme }) => theme.FONT_SIZE.XXL}px;
-        font-family: ${({ theme }) => theme.FONT_FAMILY.BOLD};
-    `}
-
-    margin: 0;
-    align-self: center;
-`;
-
-export const Text = styled.Text`
-    ${({ theme }) => css`
-        font-size: ${({ theme }) => theme.FONT_SIZE.SM}px;
-        font-family: ${({ theme }) => theme.FONT_FAMILY.BOLD};
-    `}
-
-    align-self: center;
 `;
