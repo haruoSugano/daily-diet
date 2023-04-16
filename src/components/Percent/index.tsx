@@ -1,10 +1,31 @@
 import React from "react";
-import { Container } from "./styles";
+import { ArrowIcon, BackButton, ButtonTypeStyleProps, Container, PercentText, Text } from "./styles";
+import { TouchableOpacityProps } from "react-native";
 
-export function Percent() {
-    return(
-        <Container>
-            
+type Props = TouchableOpacityProps & {
+    percent: number;
+    text: string
+    type?: ButtonTypeStyleProps;
+}
+
+export function Percent({ type = "PRIMARY", percent, text, ...rest}: Props) {
+    return (
+        <Container 
+            type={type}
+        >
+            <BackButton
+                {...rest}
+            >
+                <ArrowIcon 
+                    type={type}
+                />
+            </BackButton>
+            <PercentText>
+                {percent}%
+            </PercentText>
+            <Text>
+                {text}
+            </Text>
         </Container>
     );
 }

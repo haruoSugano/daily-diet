@@ -16,7 +16,7 @@ export default {
 
         RED_DARK: "#BF3B44",
         RED_MID: "#F3BABD",
-        RED_LIGHT: "#EFF0F0",
+        RED_LIGHT: "#F4E6E7",
     },
     FONT_FAMILY: {
         REGULAR: "NunitoSans_400Regular",

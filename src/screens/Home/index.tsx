@@ -7,7 +7,10 @@ export function Home() {
     return (
         <Container>
             <Header />
-            <Percent />
+            <Percent 
+                percent={90.86}
+                text="das refeições dentro da dieta"
+            />
         </Container>
     );
 }
