@@ -1,15 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
+
+import { Container, TextTitleButton } from "./styles";
+
 import { Header } from "@components/Header";
 import { Percent } from "@components/Percent";
-import { Container, TextTitleButton } from "./styles";
 import { AddButton } from "@components/AddButton";
+import { DayList } from "@components/DayList";
+
 
 export function Home() {
+
     return (
         <Container>
             <Header />
 
-            <Percent 
+            <Percent
                 percent={90.86}
                 text="das refeições dentro da dieta"
             />
@@ -18,9 +23,11 @@ export function Home() {
                 Refeições
             </TextTitleButton>
 
-            <AddButton 
+            <AddButton
                 title="Nova refeição"
             />
+
+            <DayList />
         </Container>
     );
 }
