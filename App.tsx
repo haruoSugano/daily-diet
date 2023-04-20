@@ -15,7 +15,7 @@ export default function App() {
         backgroundColor="transparent"
         translucent
       />
-      {fontsLoaded ? <Home /> : <ActivityIndicator />}
+      {fontsLoaded ? <Estatisticas /> : <ActivityIndicator />}
       {/* <Estatisticas /> */}
     </ThemeProvider>
   );

@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, ContainerSectionList, HairLine, Status, TextSectionList, TitleSectionList } from "./styles";
 import { SectionList } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const teste = [
     {
@@ -50,34 +51,38 @@ const teste = [
 export function DayList() {
     return (
         <Container>
-            <SectionList
-                sections={teste}
-                keyExtractor={(item) => item.refeicao}
-                renderSectionHeader={({ section: { title } }) => (
-                    <TitleSectionList>{title}</TitleSectionList>
-                )}
-                renderItem={({ item }) =>
-                    <ContainerSectionList>
-                        <TextSectionList
-                            type="PRIMARY"
-                        >
-                            {item.hour}
-                        </TextSectionList>
+            <SafeAreaView>
+                <SectionList
+                    style={{ maxHeight: 250 }}
+                    showsVerticalScrollIndicator={false}
+                    sections={teste}
+                    keyExtractor={(item) => item.refeicao}
+                    renderSectionHeader={({ section: { title } }) => (
+                        <TitleSectionList>{title}</TitleSectionList>
+                    )}
+                    renderItem={({ item }) =>
+                        <ContainerSectionList>
+                            <TextSectionList
+                                type="PRIMARY"
+                            >
+                                {item.hour}
+                            </TextSectionList>
 
-                        <HairLine />
+                            <HairLine />
 
-                        <TextSectionList
-                            type="SECONDARY"
-                        >
-                            {item.refeicao}
-                        </TextSectionList>
+                            <TextSectionList
+                                type="SECONDARY"
+                            >
+                                {item.refeicao}
+                            </TextSectionList>
 
-                        <Status 
-                            type="PRIMARY"
-                        />
-                    </ContainerSectionList>
-                }
-            />
+                            <Status
+                                type="PRIMARY"
+                            />
+                        </ContainerSectionList>
+                    }
+                />
+            </SafeAreaView>
         </Container>
     );
 }
