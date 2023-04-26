@@ -51,38 +51,37 @@ const teste = [
 export function DayList() {
     return (
         <Container>
-            <SafeAreaView>
-                <SectionList
-                    style={{ maxHeight: 250 }}
-                    showsVerticalScrollIndicator={false}
-                    sections={teste}
-                    keyExtractor={(item) => item.refeicao}
-                    renderSectionHeader={({ section: { title } }) => (
-                        <TitleSectionList>{title}</TitleSectionList>
-                    )}
-                    renderItem={({ item }) =>
-                        <ContainerSectionList>
-                            <TextSectionList
-                                type="PRIMARY"
-                            >
-                                {item.hour}
-                            </TextSectionList>
+            <SectionList
+                style={{ maxHeight: 350 }}
+                showsVerticalScrollIndicator={false}
+                sections={teste}
+                keyExtractor={(item) => item.refeicao}
+                renderSectionHeader={({ section: { title } }) => (
+                    <TitleSectionList>{title}</TitleSectionList>
+                )}
+                renderItem={({ item }) =>
+                    <ContainerSectionList>
+                        <TextSectionList
+                            type="PRIMARY"
+                        >
+                            {item.hour}
+                        </TextSectionList>
 
-                            <HairLine />
+                        <HairLine />
 
-                            <TextSectionList
-                                type="SECONDARY"
-                            >
-                                {item.refeicao}
-                            </TextSectionList>
+                        <TextSectionList
+                            type="SECONDARY"
+                        >
+                            {item.refeicao}
+                        </TextSectionList>
 
-                            <Status
-                                type="PRIMARY"
-                            />
-                        </ContainerSectionList>
-                    }
-                />
-            </SafeAreaView>
+                        <Status
+                            type="PRIMARY"
+                        />
+                    </ContainerSectionList>
+                }
+            />
+
         </Container>
     );
 }

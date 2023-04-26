@@ -11,7 +11,8 @@ type Props = {
 
 export const Container = styled.View <Props>`
     flex-direction: column;
-    width: 90%;
+    align-self: center;
+    width: 100%;
     height: 17%;
     border-radius: 5px;
     background-color: ${({ theme, type }) => type === "PRIMARY" ? theme.COLORS.GREEN_LIGHT : theme.COLORS.RED_LIGHT};

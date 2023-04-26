@@ -9,7 +9,11 @@ export const Container = styled(SafeAreaView)`
     background-color: ${({ theme }) => theme.COLORS.GRAY_700};
 `;
 
+export const Content = styled.View`
+    align-self: center;
+    width: 90%;
+`;
+
 export const TextTitleButton = styled.Text`
-    margin-left: 5%;
-    margin-top: 2%;
+    margin-bottom: 2px;
 `;

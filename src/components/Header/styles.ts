@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components/native";
+import styled from "styled-components/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ArrowLeft } from "phosphor-react-native";
 
@@ -8,7 +8,7 @@ export const Container = styled(SafeAreaView)`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 24px;
+    padding: 12px;
 `;
 
 export const Logo = styled.Image`

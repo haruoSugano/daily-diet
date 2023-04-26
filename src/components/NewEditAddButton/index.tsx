@@ -6,7 +6,7 @@ type Props = {
     type?: string;
 }
 
-export function AddButton({ title, type = "PRIMARY" }: Props) {
+export function NewEditAddButton({ title, type = "PRIMARY" }: Props) {
     return (
         <Container>
             {

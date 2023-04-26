@@ -1,12 +1,18 @@
 import { Header } from "@components/Header";
-import { Container, Content, InfoContainer, SubTitle } from "./styles";
+import { BackgroundTypeStyleProps, Container, Content, InfoContainer, SubTitle } from "./styles";
 import { PercentText } from "@components/PercentText";
 import { Sequence } from "@components/Sequence";
 import { Info } from "@components/Info";
 
-export function Estatisticas() {
+type Props = {
+    type?: BackgroundTypeStyleProps;
+}
+
+export function Estatisticas({ type = "PRIMARY" }: Props) {
     return (
-        <Container>
+        <Container
+            type={type}
+        >
             <Header
                 showBackButton={true}
             />
@@ -24,7 +30,7 @@ export function Estatisticas() {
                 <Sequence
                     total={22}
                     text="melhor sequeência de pratos dentro da dieta"
-                 />
+                />
 
                 <Sequence
                     total={109}
@@ -32,7 +38,7 @@ export function Estatisticas() {
                 />
 
                 <InfoContainer>
-                    <Info 
+                    <Info
                         total={99}
                         text="refeições dentro da dieta"
                     />

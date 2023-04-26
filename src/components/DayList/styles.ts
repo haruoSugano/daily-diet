@@ -8,8 +8,9 @@ type Props = {
 }
 
 export const Container = styled.View`
-    margin-left: 1%;
-    padding: 4.5%;
+    width: 100%;
+
+    margin-top: 5%;
 `;
 
 export const TitleSectionList = styled.Text`
@@ -18,7 +19,7 @@ export const TitleSectionList = styled.Text`
         font-family: ${theme.FONT_FAMILY.BOLD};
     `}
 
-    margin-top: 5%;
+    margin-top: 10px;
 `;
 
 export const ContainerSectionList = styled.View`
@@ -27,7 +28,7 @@ export const ContainerSectionList = styled.View`
 
     height: 49px;
 
-    margin-top: 2%;
+    margin-top: 2.5%;
 
     border-radius: 4px;
     border: 1px;

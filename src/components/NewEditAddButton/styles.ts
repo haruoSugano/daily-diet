@@ -12,17 +12,13 @@ export const Container = styled(TouchableOpacity)`
     flex-direction: row;
     justify-content: center;
 
-    width: 90%;
-
-    min-height: 56px;
-    max-height: 60px;
+    width: 100%;
+    height: 50px;
     
     background-color: ${({ theme }) => theme.COLORS.GRAY_200};
-    border-radius: 4px;
+    border-radius: 8px;
 
-    margin-left: 5%;
-    margin-top: 1%;
-    padding: 4.5%;
+    padding: 4%;
 `;
 
 export const AddIcon = styled(Plus).attrs(({ theme }) => ({
