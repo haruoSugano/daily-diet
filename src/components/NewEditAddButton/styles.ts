@@ -5,7 +5,7 @@ import { Plus } from "phosphor-react-native";
 export type ButtonTypeStyleProps = "PRIMARY" | "SECONDARY";
 
 type Props = {
-    type: ButtonTypeStyleProps;
+    type?: ButtonTypeStyleProps;
 };
 
 export const Container = styled(TouchableOpacity)`

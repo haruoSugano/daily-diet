@@ -1,6 +1,10 @@
 import { ArrowIcon, BackButton, Container, TitleText } from "./styles";
 
-export function Title() {
+type Props = {
+    title: string;
+}
+
+export function Title({ title }: Props) {
     return(
         <Container>
             <BackButton>
@@ -8,7 +12,7 @@ export function Title() {
             </BackButton>
             
             <TitleText>
-                Nova refeição
+                {title}
             </TitleText>
         </Container>
     );

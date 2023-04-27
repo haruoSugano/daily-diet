@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components/native";
 import { TouchableOpacity } from "react-native";
-
 import { ArrowLeft } from "phosphor-react-native";
 
 export const Container = styled.View`
@@ -29,5 +28,5 @@ export const TitleText = styled.Text`
         font-family: ${theme.FONT_FAMILY.BOLD};
     `}
 
-    margin-left: 25%;
+    margin-left: 27%;
 `;

@@ -18,7 +18,9 @@ export function Criacao() {
 
     return (
         <Container>
-            <Title />
+            <Title 
+                title="Nova refeição"
+            />
             <Content>
                 <Form>
                     <SubText>
