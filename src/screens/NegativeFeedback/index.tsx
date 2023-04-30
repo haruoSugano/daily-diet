@@ -1,10 +1,18 @@
-import { BackHomeButton } from "@components/BackHomeButton";
+import { useNavigation } from "@react-navigation/native";
+
 import { Container, Content, TextBold, TextFeedback } from "./styles";
+import { BackHomeButton } from "@components/BackHomeButton";
 import illustrationImage from "@assets/negativeIllustration.png";
 import { Illustration } from "@components/Illustration";
 import { TitleFeedback } from "@components/TitleFeedback";
 
 export function NegativeFeedback() {
+    const navigation = useNavigation();
+
+    function handleBackHome() {
+        navigation.navigate("home");
+    }
+    
     return (
         <Container>
             <Content>
@@ -21,7 +29,9 @@ export function NegativeFeedback() {
                     source={illustrationImage}
                 />
 
-                <BackHomeButton />
+                <BackHomeButton 
+                    onPress={handleBackHome}
+                />
             </Content>
         </Container>
     );

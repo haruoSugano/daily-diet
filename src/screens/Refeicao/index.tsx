@@ -1,20 +1,49 @@
+import { useNavigation, useRoute } from "@react-navigation/native";
+
+import {
+    Container, ContainerButton, Content, DateHourDescription,
+    DateHourTitle, DescriptionText, Option, TitleText, TypeRefeicao, TypeRefeicaoText
+} from "./styles";
+
 import { Title } from "@components/Title";
-import { Container, ContainerButton, Content, DateHourDescription, DateHourTitle, DescriptionText, Option, TitleText, TypeRefeicao, TypeRefeicaoText } from "./styles";
 import { EditRemoveButton } from "@components/EditRemoveButton";
 
+import { RefeicaoStorageDTO } from "@storage/refeicao/RefeicaoStorageDTO";
+
+type RouteParams = {
+    refeicao: RefeicaoStorageDTO;
+};
+
 export function Refeicao() {
+    const navigation = useNavigation();
+    const route = useRoute();
+    const {refeicao} = route.params as RouteParams;
+
+    function handleEditRefeicao() {
+        navigation.navigate("edicao");
+    }
+
+    function handleRemoveRefeicao() {
+        console.log("Removeando...");
+    }
+
+    function handleBackHome() {
+        navigation.navigate("home");
+    }
+
     return (
         <Container>
             <Title
                 title="Refeição"
+                onPress={handleBackHome}
             />
             <Content>
                 <TitleText>
-                    Sanduíche
+                    {refeicao.name}
                 </TitleText>
 
                 <DescriptionText>
-                    Sanduíche de pão integral com atum e salada de alface e tomate.
+                    {refeicao.description}
                 </DescriptionText>
 
                 <DateHourTitle>
@@ -22,24 +51,26 @@ export function Refeicao() {
                 </DateHourTitle>
 
                 <DateHourDescription>
-                    12/08/2022 às 16:00
+                    {`${refeicao.date} às ${refeicao.hour}`}
                 </DateHourDescription>
 
                 <TypeRefeicao>
                     <Option
-                        type="PRIMARY"
+                        type={refeicao.healthyFood ? "PRIMARY" : "SECONDARY"}
                     />
                     <TypeRefeicaoText>
-                        dentro da dieta
+                        {refeicao.healthyFood ? "dentro da dieta" : "fora da dieta"}
                     </TypeRefeicaoText>
                 </TypeRefeicao>
 
                 <ContainerButton>
                     <EditRemoveButton
                         type="PRIMARY"
+                        onPress={handleEditRefeicao}
                     />
                     <EditRemoveButton
                         type="SECONDARY"
+                        onPress={handleRemoveRefeicao}
                     />
                 </ContainerButton>
             </Content>

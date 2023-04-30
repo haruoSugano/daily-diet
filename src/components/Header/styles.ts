@@ -1,6 +1,7 @@
 import styled from "styled-components/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ArrowLeft } from "phosphor-react-native";
+import { TouchableOpacity } from "react-native";
 
 export const Container = styled(SafeAreaView)`
     width: 100%;
@@ -21,7 +22,7 @@ export const PhotoUser = styled.Image`
     height: 40px;
 `;
 
-export const BackButton = styled.TouchableOpacity`
+export const BackButton = styled(TouchableOpacity)`
     flex: 1;
 `;
 

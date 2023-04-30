@@ -8,6 +8,8 @@ import { StatusBar, ActivityIndicator } from "react-native";
 import { ThemeProvider } from "styled-components";
 import { useFonts, NunitoSans_400Regular, NunitoSans_600SemiBold } from "@expo-google-fonts/nunito-sans";
 import { Refeicao } from "@screens/Refeicao";
+import { EditarRefeicao } from "@screens/EditarRefeicao";
+import { Routes } from "@routes/index";
 
 export default function App() {
   const [fontsLoaded] = useFonts({ NunitoSans_400Regular, NunitoSans_600SemiBold });
@@ -19,7 +21,7 @@ export default function App() {
         backgroundColor="transparent"
         translucent
       />
-      {fontsLoaded ? <Refeicao /> : <ActivityIndicator />}
+      {fontsLoaded ? <Routes /> : <ActivityIndicator />}
       {/* <Estatisticas /> */}
     </ThemeProvider>
   );

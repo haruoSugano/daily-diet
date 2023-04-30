@@ -1,5 +1,7 @@
-import { Header } from "@components/Header";
+import { useNavigation } from "@react-navigation/native";
+
 import { BackgroundTypeStyleProps, Container, Content, InfoContainer, SubTitle } from "./styles";
+import { Header } from "@components/Header";
 import { PercentText } from "@components/PercentText";
 import { Sequence } from "@components/Sequence";
 import { Info } from "@components/Info";
@@ -9,12 +11,20 @@ type Props = {
 }
 
 export function Estatisticas({ type = "PRIMARY" }: Props) {
+
+    const navigation = useNavigation();
+
+    function handleBackHome() {
+        navigation.navigate("home");
+    }
+
     return (
         <Container
             type={type}
         >
             <Header
                 showBackButton={true}
+                onPress={handleBackHome}
             />
 
             <PercentText

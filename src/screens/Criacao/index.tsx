@@ -1,10 +1,12 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { Alert } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
-import { AnswerButton, Container, Content, InputDateHour, InputDescription, NameInput, SubContent, SubText, Option, Form, TypeStyleProps, FooterButton } from "./styles";
+import { Container, Content, TypeStyleProps } from "./styles";
 
 import { Title } from "@components/Title";
 import { TouchableOpacityProps } from "react-native";
-import { NewEditAddButton } from "@components/NewEditAddButton";
+import { Form } from "@components/Form";
 
 type Props = TouchableOpacityProps & {
     name: string;
@@ -14,84 +16,49 @@ type Props = TouchableOpacityProps & {
 };
 
 export function Criacao() {
-    const [userOptions, setUserOptions] = useState<TypeStyleProps>("PRIMARY");
+    const [nameRefeicao, setNameRefeicao] = useState("");
+    const [descriptionRefeicao, setDescriptionRefeicao] = useState("");
+    const [dateRefeicao, setDateRefeicao] = useState("");
+    const [hourRefeicao, setHourRefeicao] = useState("");
+    const [userOptions, setUserOptions] = useState<TypeStyleProps>("DEFAULT");
+
+    const navigation = useNavigation();
+
+    function handleNew() {
+        console.log("Adicionando...");
+
+        switch (userOptions) {
+            case "PRIMARY":
+                navigation.navigate("positiveFeedback");
+                break;
+            case "SECONDARY":
+                navigation.navigate("negativeFeedback");
+                break;
+            default:
+                return Alert.alert("Nova refeição", "Por favor selecione se está dentro da dieta");
+        }
+    }
+
+    function handleBackHome() {
+        navigation.navigate("home");
+    }
 
     return (
         <Container>
-            <Title 
+            <Title
                 title="Nova refeição"
+                onPress={handleBackHome}
             />
             <Content>
-                <Form>
-                    <SubText>
-                        Nome
-                    </SubText>
-                    <NameInput
-                  
-                    />
-
-                    <SubText>
-                        Descrição
-                    </SubText>
-                    <InputDescription
-                        multiline={true}
-                        numberOfLines={10}
-                 
-                    />
-
-                    <SubContent>
-                        <SubText>
-                            Data
-                        </SubText>
-                        <SubText>
-                            Hora
-                        </SubText>
-                    </SubContent>
-
-                    <SubContent>
-                        <InputDateHour
-                            
-                        />
-                        <InputDateHour />
-                    </SubContent>
-
-                    <SubText>
-                        Está dentro da dieta?
-                    </SubText>
-
-                    <SubContent>
-                        <AnswerButton
-                        
-                            type="DEFAULT"
-                        >
-                            <Option
-                                type="PRIMARY"
-                            />
-                            <SubText>
-                                Sim
-                            </SubText>
-                        </AnswerButton>
-
-                        <AnswerButton
-                            type="DEFAULT"
-                       
-                        >
-                            <Option
-                                type="SECONDARY"
-                            />
-                            <SubText>
-                                Não
-                            </SubText>
-                        </AnswerButton>
-                    </SubContent>
-                </Form>
-
-                <FooterButton>
-                    <NewEditAddButton
-                        title="Cadastrar refeição"
-                        type="SECONDARY"
-                    />
-                </FooterButton>
+                <Form 
+                    onNameChange={setNameRefeicao}
+                    onDescriptionChange={setDescriptionRefeicao}
+                    onDateChange={setDateRefeicao}
+                    onHourChange={setHourRefeicao}
+                    onSubmit={handleNew}
+                    selectedValue={userOptions}
+                    onRadioChange={setUserOptions}
+                />
             </Content>
         </Container>
     );

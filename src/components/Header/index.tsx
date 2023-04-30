@@ -3,19 +3,22 @@ import { BackButton, BackIcon, Container, Logo, PhotoUser } from "./styles";
 
 import photoUser from "@assets/photo.png";
 import logoImage from "@assets/logo.png";
-import { View } from "react-native";
+import { TouchableOpacityProps, View } from "react-native";
 
-type Props = {
+type Props = TouchableOpacityProps & {
     showBackButton?: boolean;
+    
 }
 
-export function Header({ showBackButton = false }: Props) {
+export function Header({ showBackButton = false, ...rest }: Props) {
     return (
         <View>
             {
                 showBackButton ?
                     <Container>
-                        <BackButton>
+                        <BackButton
+                            {...rest}
+                        >
                             <BackIcon />
                         </BackButton>
                     </Container> :

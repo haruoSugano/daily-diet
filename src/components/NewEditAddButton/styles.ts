@@ -17,7 +17,7 @@ export const Container = styled(TouchableOpacity)`
     
     background-color: ${({ theme }) => theme.COLORS.GRAY_200};
     border-radius: 8px;
-
+    
     padding: 4%;
 `;
 

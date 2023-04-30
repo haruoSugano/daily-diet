@@ -1,9 +1,14 @@
+import { TouchableOpacityProps } from "react-native";
 import { Container, HomeButton, TitleButton } from "./styles";
 
-export function BackHomeButton() {
+type Props = TouchableOpacityProps;
+
+export function BackHomeButton({ ...rest }: Props) {
     return(
         <Container>
-            <HomeButton>
+            <HomeButton
+                {...rest}
+            >
                 <TitleButton>
                     Ir para a página inicial
                 </TitleButton>

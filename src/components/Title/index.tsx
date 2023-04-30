@@ -1,13 +1,16 @@
+import { TouchableOpacityProps } from "react-native";
 import { ArrowIcon, BackButton, Container, TitleText } from "./styles";
 
-type Props = {
+type Props = TouchableOpacityProps & {
     title: string;
 }
 
-export function Title({ title }: Props) {
+export function Title({ title, ...rest }: Props) {
     return(
         <Container>
-            <BackButton>
+            <BackButton
+                {...rest}
+            >
                 <ArrowIcon />
             </BackButton>
             
