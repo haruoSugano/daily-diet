@@ -6,12 +6,14 @@ export declare global {
             home: undefined;
             estatistica: undefined;
             criacao: undefined;
-            edicao: undefined;
             positiveFeedback: undefined;
             negativeFeedback: undefined;
+            edicao: {
+                refeicaoData: RefeicaoStorageDTO;
+            };
             refeicoes: {
-                refeicao: RefeicaoStorageDTO;
-            }
+                refeicaoData: RefeicaoStorageDTO;
+            };
         }
     }
 }

@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import { Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { v4 as uuidv4 } from 'uuid';
 
 import { Container, Content, TypeStyleProps } from "./styles";
 
 import { Title } from "@components/Title";
 import { TouchableOpacityProps } from "react-native";
 import { Form } from "@components/Form";
+import { AppError } from "@utils/AppError";
+import { refeicaCreate } from "@storage/refeicao/refeicaoCreate";
+import { RefeicaoStorageDTO } from "@storage/refeicao/RefeicaoStorageDTO";
 
 type Props = TouchableOpacityProps & {
     name: string;
@@ -14,6 +18,8 @@ type Props = TouchableOpacityProps & {
     date: string;
     type?: TypeStyleProps;
 };
+
+type Refeicao = RefeicaoStorageDTO;
 
 export function Criacao() {
     const [nameRefeicao, setNameRefeicao] = useState("");
@@ -24,18 +30,36 @@ export function Criacao() {
 
     const navigation = useNavigation();
 
-    function handleNew() {
-        console.log("Adicionando...");
+    async function handleNew() {
+        try {
+            const refeicao = {
+                id: uuidv4(),
+                date: dateRefeicao,
+                hour: hourRefeicao,
+                name: nameRefeicao,
+                description: descriptionRefeicao,
+                healthyFood: userOptions === "PRIMARY" ? true : false,
+            }
 
-        switch (userOptions) {
-            case "PRIMARY":
-                navigation.navigate("positiveFeedback");
-                break;
-            case "SECONDARY":
-                navigation.navigate("negativeFeedback");
-                break;
-            default:
-                return Alert.alert("Nova refeição", "Por favor selecione se está dentro da dieta");
+            switch (userOptions) {
+                case "PRIMARY":
+                    navigation.navigate("positiveFeedback");
+                    break;
+                case "SECONDARY":
+                    navigation.navigate("negativeFeedback");
+                    break;
+                default:
+                    return Alert.alert("Nova refeição", "Por favor selecione se está dentro da dieta");
+            }
+            
+            await refeicaCreate(refeicao);
+        } catch (error) {
+            if (error instanceof AppError) {
+                Alert.alert("Nova refeição", error.message);
+            } else {
+                Alert.alert("Nova refeição", "Não foi possível adicionar uma nova refeição.");
+                console.log(error);
+            }
         }
     }
 

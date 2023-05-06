@@ -5,6 +5,7 @@ import {
     InputDescription, NameInput, SubContent, SubText, TypeStyleProps, Option
 } from "./styles";
 import { NewEditAddButton } from "@components/NewEditAddButton";
+import { RefeicaoStorageDTO } from "@storage/refeicao/RefeicaoStorageDTO";
 
 type Props = TextInputProps & {
     inputRef?: {
@@ -12,7 +13,10 @@ type Props = TextInputProps & {
         description?: React.RefObject<TextInput>;
         hour?: React.RefObject<TextInput>;
         date?: React.RefObject<TextInput>;
-    }
+        healthyFood?: React.RefObject<TextInput>
+    },
+
+    refeicao?: RefeicaoStorageDTO;
 
     onNameChange: (text: string) => void;
     onDescriptionChange: (text: string) => void;
@@ -22,9 +26,13 @@ type Props = TextInputProps & {
 
     selectedValue: string;
     onRadioChange: (value: TypeStyleProps) => void;
-}
+};
 
-export function Form({ inputRef, onNameChange, onDescriptionChange, onHourChange, onDateChange, selectedValue = "DEFAULT", onRadioChange, onSubmit, ...rest }: Props) {
+export function Form({
+    inputRef, refeicao, onNameChange, onDescriptionChange, onHourChange,
+    onDateChange, selectedValue = "DEFAULT", onRadioChange, onSubmit, ...rest
+}: Props) {
+
     return (
         <Container>
             <SubText>
@@ -34,6 +42,7 @@ export function Form({ inputRef, onNameChange, onDescriptionChange, onHourChange
                 ref={inputRef?.name}
                 onChangeText={onNameChange}
                 {...rest}
+                placeholder={refeicao?.name}
             />
 
             <SubText>
@@ -45,6 +54,7 @@ export function Form({ inputRef, onNameChange, onDescriptionChange, onHourChange
                 ref={inputRef?.description}
                 onChangeText={onDescriptionChange}
                 {...rest}
+                placeholder={refeicao?.description}
             />
 
             <SubContent>
@@ -61,11 +71,13 @@ export function Form({ inputRef, onNameChange, onDescriptionChange, onHourChange
                     ref={inputRef?.date}
                     onChangeText={onDateChange}
                     {...rest}
+                    placeholder={refeicao?.date}
                 />
                 <InputDateHour
                     ref={inputRef?.hour}
                     onChangeText={onHourChange}
                     {...rest}
+                    placeholder={refeicao?.hour}
                 />
             </SubContent>
 
@@ -98,7 +110,7 @@ export function Form({ inputRef, onNameChange, onDescriptionChange, onHourChange
                     </SubText>
                 </AnswerButton>
             </SubContent>
-            
+
             <FooterButton>
                 <NewEditAddButton
                     onPress={onSubmit}

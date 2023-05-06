@@ -1,89 +1,44 @@
-import React, { useState } from "react";
-import { useNavigation } from "@react-navigation/native";
-import { SectionList } from "react-native";
+import React, { useCallback, useState } from "react";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { Alert, SectionList } from "react-native";
 
-import { Container, ContainerList, ContainerSectionList, Content, HairLine, Status, TextSectionList, TextTitleButton, TitleSectionList } from "./styles";
+import {
+    Container, ContainerList, ContainerSectionList, Content, HairLine, Status,
+    TextSectionList, TextTitleButton, TitleSectionList
+} from "./styles";
 
 import { Header } from "@components/Header";
 import { Percent } from "@components/Percent";
 import { NewEditAddButton } from "@components/NewEditAddButton";
 import { RefeicaoStorageDTO } from "@storage/refeicao/RefeicaoStorageDTO";
+import { refeicoesGetAll } from "@storage/refeicao/refeicoesGetAll";
+import { FormatData } from "@utils/FormatData";
 
 type Refeicao = RefeicaoStorageDTO;
 
-const teste = [
-    {
-        title: "12.08.22",
-        data: [
-            {
-                date: "12/08/22",
-                hour: "20:00",
-                name: "X-tudo",
-                description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-                healthyFood: false
-            },
-            {
-                date: "12/08/22",
-                hour: "16:00",
-                name: "Whey protein com leite",
-                description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-                healthyFood: true
-            },
-            {
-                date: "12/08/22",
-                hour: "12:30",
-                name: "Salada cesar com frongo cozido",
-                description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-                healthyFood: true
-            },
-            {
-                date: "12/08/22",
-                hour: "09:30",
-                name: "Vitamina de banana com leite",
-                description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-                healthyFood: true
-            },
-        ]
-    },
-    {
-        title: "08.08.22",
-        data: [
-            {
-                date: "12/08/22",
-                hour: "20:00",
-                name: "X-tudo",
-                description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-                healthyFood: false
-            },
-            {
-                date: "12/08/22",
-                hour: "16:00",
-                name: "Whey protein com leite",
-                description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-                healthyFood: true
-            },
-            {
-                date: "12/08/22",
-                hour: "12:30",
-                name: "Salada cesar com frongo cozido",
-                description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-                healthyFood: true
-            },
-            {
-                date: "12/08/22",
-                hour: "09:30",
-                name: "Vitamina de banana com leite",
-                description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-                healthyFood: true
-            },
-        ]
-    }
-];
-
+type SectionListData = {
+    title: string;
+    data: Refeicao[];
+}
 
 export function Home() {
-
+    const [refeicoes, setRefeicoes] = useState<SectionListData[]>([]);
     const navigation = useNavigation();
+
+    async function fetchRefeicoes() {
+        try {
+            const dataFormada = FormatData(await refeicoesGetAll());
+            setRefeicoes(dataFormada);
+        } catch (error) {
+            console.log(error);
+            Alert.alert("Refeicões", "Não foi possível carregar as refeições.");
+        } finally {
+        }
+    }
+
+    useFocusEffect(useCallback(() => {
+        fetchRefeicoes();
+    }, []));
 
     function handleOpenEstatistica() {
         navigation.navigate("estatistica");
@@ -93,8 +48,8 @@ export function Home() {
         navigation.navigate("criacao");
     }
 
-    function handleOpenRefeicao(refeicao: Refeicao) {
-        navigation.navigate("refeicoes", { refeicao });
+    function handleOpenRefeicao(refeicaoData: Refeicao) {
+        navigation.navigate("refeicoes", { refeicaoData });
     }
 
     return (
@@ -121,7 +76,7 @@ export function Home() {
                     <SectionList
                         style={{ maxHeight: 350 }}
                         showsVerticalScrollIndicator={false}
-                        sections={teste}
+                        sections={refeicoes}
                         keyExtractor={(item) => item.name}
                         renderSectionHeader={({ section: { title } }) => (
                             <TitleSectionList>{title}</TitleSectionList>
@@ -144,7 +99,7 @@ export function Home() {
 
                                 <Status
                                     onPress={() => handleOpenRefeicao(item)}
-                                    type={ item.healthyFood ? "PRIMARY" : "SECONDARY"}
+                                    type={item.healthyFood ? "PRIMARY" : "SECONDARY"}
                                 />
                             </ContainerSectionList>
                         }
