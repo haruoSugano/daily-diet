@@ -13,6 +13,7 @@ import { NewEditAddButton } from "@components/NewEditAddButton";
 import { RefeicaoStorageDTO } from "@storage/refeicao/RefeicaoStorageDTO";
 import { refeicoesGetAll } from "@storage/refeicao/refeicoesGetAll";
 import { FormatData } from "@utils/FormatData";
+import { CalculatePercent } from "@utils/Functions";
 
 type Refeicao = RefeicaoStorageDTO;
 
@@ -22,23 +23,9 @@ type SectionListData = {
 }
 
 export function Home() {
-    const [refeicoes, setRefeicoes] = useState<SectionListData[]>([]);
+    const [refeicoes, setRefeicoes] = useState<Refeicao[]>([]);
+    const [refeicoesDataSectionList, setRefeicoesDataSectionList] = useState<SectionListData[]>([]);
     const navigation = useNavigation();
-
-    async function fetchRefeicoes() {
-        try {
-            const dataFormada = FormatData(await refeicoesGetAll());
-            setRefeicoes(dataFormada);
-        } catch (error) {
-            console.log(error);
-            Alert.alert("Refeicões", "Não foi possível carregar as refeições.");
-        } finally {
-        }
-    }
-
-    useFocusEffect(useCallback(() => {
-        fetchRefeicoes();
-    }, []));
 
     function handleOpenEstatistica() {
         navigation.navigate("estatistica");
@@ -52,13 +39,30 @@ export function Home() {
         navigation.navigate("refeicoes", { refeicaoData });
     }
 
+    async function fetchRefeicoes() {
+        try {
+            const refeicoesData = await refeicoesGetAll();
+            const dataFormada = FormatData(refeicoesData);
+            setRefeicoes(refeicoesData);
+            setRefeicoesDataSectionList(dataFormada);
+        } catch (error) {
+            console.log(error);
+            Alert.alert("Refeicões", "Não foi possível carregar as refeições.");
+        } finally {
+        }
+    }
+
+    useFocusEffect(useCallback(() => {
+        fetchRefeicoes();
+    }, []));
+
     return (
         <Container>
             <Content>
                 <Header />
 
                 <Percent
-                    percent={90.86}
+                    percent={CalculatePercent(refeicoes)}
                     text="das refeições dentro da dieta"
                     onPress={handleOpenEstatistica}
                 />
@@ -76,7 +80,7 @@ export function Home() {
                     <SectionList
                         style={{ maxHeight: 350 }}
                         showsVerticalScrollIndicator={false}
-                        sections={refeicoes}
+                        sections={refeicoesDataSectionList}
                         keyExtractor={(item) => item.name}
                         renderSectionHeader={({ section: { title } }) => (
                             <TitleSectionList>{title}</TitleSectionList>

@@ -12,13 +12,13 @@ type Props = TouchableOpacityProps & {
 export function Percent({ type = "PRIMARY", percent, text, ...rest}: Props) {
     return (
         <Container 
-            type={type}
+            type={percent > 50 ? "PRIMARY" : "SECONDARY"}
         >
             <BackButton
                 {...rest}
             >
                 <ArrowIcon 
-                    type={type}
+                    type={percent > 50 ? "PRIMARY" : "SECONDARY"}
                 />
             </BackButton>
             <PercentText 

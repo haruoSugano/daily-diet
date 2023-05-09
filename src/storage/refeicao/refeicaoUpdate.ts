@@ -21,8 +21,6 @@ export async function refeicaoUpdate(refeicaoUpdate: RefeicaoStorageDTO) {
 
         const refeicoes = storedRefeicoes.filter(refeicao => refeicao.id !== refeicaoUpdate.id);
 
-        console.log(refeicoes)
-
         const storage = JSON.stringify([...refeicoes, refeicao]);
         await AsyncStorage.setItem(REFEICAO_COLLECTION, storage);
     } catch (error) {

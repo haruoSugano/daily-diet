@@ -1,15 +1,9 @@
-import { Estatisticas } from "@screens/Estatisticas";
-import { Home } from "@screens/Home";
-import { Criacao } from "@screens/Criacao";
-import { PositiveFeedback } from "@screens/PositiveFeedback";
-import { NegativeFeedback } from "@screens/NegativeFeedback";
-import theme from "@theme/index";
 import { StatusBar, ActivityIndicator } from "react-native";
-import { ThemeProvider } from "styled-components";
 import { useFonts, NunitoSans_400Regular, NunitoSans_600SemiBold } from "@expo-google-fonts/nunito-sans";
-import { Refeicao } from "@screens/Refeicao";
-import { EditarRefeicao } from "@screens/EditarRefeicao";
+import theme from "@theme/index";
+import { ThemeProvider } from "styled-components";
 import { Routes } from "@routes/index";
+import 'react-native-get-random-values';
 
 export default function App() {
   const [fontsLoaded] = useFonts({ NunitoSans_400Regular, NunitoSans_600SemiBold });
@@ -22,7 +16,6 @@ export default function App() {
         translucent
       />
       {fontsLoaded ? <Routes /> : <ActivityIndicator />}
-      {/* <Estatisticas /> */}
     </ThemeProvider>
   );
 }

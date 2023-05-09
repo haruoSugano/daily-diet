@@ -3,6 +3,12 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { ArrowLeft } from "phosphor-react-native";
 import { TouchableOpacity } from "react-native";
 
+export type ButtonTypeStyleProps = "PRIMARY" | "SECONDARY";
+
+type Props = {
+    type: ButtonTypeStyleProps;
+}
+
 export const Container = styled(SafeAreaView)`
     width: 100%;
     
@@ -26,7 +32,7 @@ export const BackButton = styled(TouchableOpacity)`
     flex: 1;
 `;
 
-export const BackIcon = styled(ArrowLeft).attrs(({ theme }) => ({
+export const BackIcon = styled(ArrowLeft).attrs<Props>(({ theme, type }) => ({
     size: 24,
-    color: theme.COLORS.GREEN_DARK
-}))``;
+    color: type === "PRIMARY" ? theme.COLORS.GREEN_DARK : theme.COLORS.RED_DARK
+}))<Props>``;
