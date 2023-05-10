@@ -9,7 +9,9 @@ export function CalculatePercent(refeicoes: Refeicoes) {
     const percentNegative = (100 * refeicoesNegative.length) / totalRefeicoes;
     const percent = 100 - percentNegative;
 
-    return parseFloat(percent.toFixed(2));
+    const percentage = parseFloat(percent.toFixed(2));
+
+    return isNaN(percentage) ? 0 : percentage;
 }
 
 export function Positive(refeicoes: Refeicoes) {

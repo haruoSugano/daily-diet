@@ -14,6 +14,8 @@ import { RefeicaoStorageDTO } from "@storage/refeicao/RefeicaoStorageDTO";
 import { refeicoesGetAll } from "@storage/refeicao/refeicoesGetAll";
 import { FormatData } from "@utils/FormatData";
 import { CalculatePercent } from "@utils/Functions";
+import { ListEmpty } from "@components/ListEmpty";
+import { Loading } from "@components/Loading";
 
 type Refeicao = RefeicaoStorageDTO;
 
@@ -25,6 +27,8 @@ type SectionListData = {
 export function Home() {
     const [refeicoes, setRefeicoes] = useState<Refeicao[]>([]);
     const [refeicoesDataSectionList, setRefeicoesDataSectionList] = useState<SectionListData[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const percentage = CalculatePercent(refeicoes);
     const navigation = useNavigation();
 
     function handleOpenEstatistica() {
@@ -41,6 +45,7 @@ export function Home() {
 
     async function fetchRefeicoes() {
         try {
+            setIsLoading(true);
             const refeicoesData = await refeicoesGetAll();
             const dataFormada = FormatData(refeicoesData);
             setRefeicoes(refeicoesData);
@@ -49,6 +54,7 @@ export function Home() {
             console.log(error);
             Alert.alert("Refeicões", "Não foi possível carregar as refeições.");
         } finally {
+            setIsLoading(false);
         }
     }
 
@@ -62,7 +68,7 @@ export function Home() {
                 <Header />
 
                 <Percent
-                    percent={CalculatePercent(refeicoes)}
+                    percent={percentage}
                     text="das refeições dentro da dieta"
                     onPress={handleOpenEstatistica}
                 />
@@ -77,38 +83,42 @@ export function Home() {
                 />
 
                 <ContainerList>
-                    <SectionList
-                        style={{ maxHeight: 350 }}
-                        showsVerticalScrollIndicator={false}
-                        sections={refeicoesDataSectionList}
-                        keyExtractor={(item) => item.name}
-                        renderSectionHeader={({ section: { title } }) => (
-                            <TitleSectionList>{title}</TitleSectionList>
-                        )}
-                        renderItem={({ item }) =>
-                            <ContainerSectionList>
-                                <TextSectionList
-                                    type="PRIMARY"
-                                >
-                                    {item.hour}
-                                </TextSectionList>
+                    {
+                        isLoading ? <Loading /> :
 
-                                <HairLine />
+                            <SectionList
+                                style={{ maxHeight: 350 }}
+                                showsVerticalScrollIndicator={false}
+                                sections={refeicoesDataSectionList}
+                                keyExtractor={(item) => item.name}
+                                renderSectionHeader={({ section: { title } }) => (
+                                    <TitleSectionList>{title}</TitleSectionList>
+                                )}
+                                ListEmptyComponent={<ListEmpty message="Não há nenhuma refeição cadastrada" />}
+                                renderItem={({ item }) =>
+                                    <ContainerSectionList>
+                                        <TextSectionList
+                                            type="PRIMARY"
+                                        >
+                                            {item.hour}
+                                        </TextSectionList>
 
-                                <TextSectionList
-                                    type="SECONDARY"
-                                >
-                                    {item.name}
-                                </TextSectionList>
+                                        <HairLine />
 
-                                <Status
-                                    onPress={() => handleOpenRefeicao(item)}
-                                    type={item.healthyFood ? "PRIMARY" : "SECONDARY"}
-                                />
-                            </ContainerSectionList>
-                        }
-                    />
+                                        <TextSectionList
+                                            type="SECONDARY"
+                                        >
+                                            {item.name}
+                                        </TextSectionList>
 
+                                        <Status
+                                            onPress={() => handleOpenRefeicao(item)}
+                                            type={item.healthyFood ? "PRIMARY" : "SECONDARY"}
+                                        />
+                                    </ContainerSectionList>
+                                }
+                            />
+                    }
                 </ContainerList>
             </Content>
         </Container>
