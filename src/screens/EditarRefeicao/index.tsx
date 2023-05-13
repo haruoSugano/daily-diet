@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Alert } from "react-native";
+import { Alert, Keyboard, ScrollView, TouchableWithoutFeedback } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
 import { Container, Content } from "./styles";
@@ -54,23 +54,30 @@ export function EditarRefeicao() {
     }
 
     return (
-        <Container>
-            <Title
-                title="Editar refeição"
-                onPress={handleBackHome}
-            />
-            <Content>
-                <Form
-                    refeicao={refeicaoData}
-                    onNameChange={setNameRefeicao}
-                    onDescriptionChange={setDescriptionRefeicao}
-                    onDateChange={setDateRefeicao}
-                    onHourChange={setHourRefeicao}
-                    onSubmit={() => handleEdit(refeicaoData)}
-                    selectedValue={userOptions}
-                    onRadioChange={setUserOptions}
+        <TouchableWithoutFeedback
+            onPress={() => Keyboard.dismiss()}
+            accessible={false}
+        >
+            <Container>
+                <Title
+                    title="Editar refeição"
+                    onPress={handleBackHome}
                 />
-            </Content>
-        </Container>
+                <ScrollView showsVerticalScrollIndicator={false}>
+                    <Content>
+                        <Form
+                            refeicao={refeicaoData}
+                            onNameChange={setNameRefeicao}
+                            onDescriptionChange={setDescriptionRefeicao}
+                            onDateChange={setDateRefeicao}
+                            onHourChange={setHourRefeicao}
+                            onSubmit={() => handleEdit(refeicaoData)}
+                            selectedValue={userOptions}
+                            onRadioChange={setUserOptions}
+                        />
+                    </Content>
+                </ScrollView>
+            </Container>
+        </TouchableWithoutFeedback>
     );
 }

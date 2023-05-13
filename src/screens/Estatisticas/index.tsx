@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 import { Alert } from "react-native";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 
-import { BackgroundTypeStyleProps, Container, Content, InfoContainer, SubTitle } from "./styles";
+import {  Container, Content, InfoContainer, SubTitle } from "./styles";
 import { Header } from "@components/Header";
 import { PercentText } from "@components/PercentText";
 import { Sequence } from "@components/Sequence";
@@ -10,10 +10,6 @@ import { Info } from "@components/Info";
 import { refeicoesGetAll } from "@storage/refeicao/refeicoesGetAll";
 import { RefeicaoStorageDTO } from "@storage/refeicao/RefeicaoStorageDTO";
 import { CalculatePercent, Negative, Positive, SequenceDiet } from "@utils/Functions";
-
-type Props = {
-    type?: BackgroundTypeStyleProps;
-}
 
 type Refeicao = RefeicaoStorageDTO;
 

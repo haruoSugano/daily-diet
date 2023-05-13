@@ -1,5 +1,5 @@
 import React from "react";
-import { TextInput, TextInputProps } from "react-native";
+import { KeyboardAvoidingView, Platform, ScrollView, TextInput, TextInputProps, View } from "react-native";
 import {
     AnswerButton, Container, InputDateHour, FooterButton,
     InputDescription, NameInput, SubContent, SubText, TypeStyleProps, Option
@@ -33,91 +33,102 @@ export function Form({
     onDateChange, selectedValue = "DEFAULT", onRadioChange, onSubmit, ...rest
 }: Props) {
 
+    const plataform = Platform.OS === "ios" ? 70 : -100;
+
     return (
-        <Container>
-            <SubText>
-                Nome
-            </SubText>
-            <NameInput
-                ref={inputRef?.name}
-                onChangeText={onNameChange}
-                {...rest}
-                placeholder={refeicao?.name}
-            />
-
-            <SubText>
-                Descrição
-            </SubText>
-            <InputDescription
-                multiline={true}
-                numberOfLines={10}
-                ref={inputRef?.description}
-                onChangeText={onDescriptionChange}
-                {...rest}
-                placeholder={refeicao?.description}
-            />
-
-            <SubContent>
-                <SubText>
-                    Data
-                </SubText>
-                <SubText>
-                    Hora
-                </SubText>
-            </SubContent>
-
-            <SubContent>
-                <InputDateHour
-                    ref={inputRef?.date}
-                    onChangeText={onDateChange}
-                    {...rest}
-                    placeholder={refeicao?.date}
-                />
-                <InputDateHour
-                    ref={inputRef?.hour}
-                    onChangeText={onHourChange}
-                    {...rest}
-                    placeholder={refeicao?.hour}
-                />
-            </SubContent>
-
-            <SubText>
-                Está dentro da dieta?
-            </SubText>
-
-            <SubContent>
-                <AnswerButton
-                    type={selectedValue === "PRIMARY" ? "PRIMARY" : "DEFAULT"}
-                    onPress={() => onRadioChange("PRIMARY")}
-                >
-                    <Option
-                        type="PRIMARY"
-                    />
+        <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={plataform}>
+            <ScrollView
+                contentContainerStyle={{ flexGrow: 1 }}
+                showsVerticalScrollIndicator={false}
+            >
+                <Container>
                     <SubText>
-                        Sim
+                        Nome
                     </SubText>
-                </AnswerButton>
-
-                <AnswerButton
-                    type={selectedValue === "SECONDARY" ? "SECONDARY" : "DEFAULT"}
-                    onPress={() => onRadioChange("SECONDARY")}
-                >
-                    <Option
-                        type="SECONDARY"
+                    <NameInput
+                        ref={inputRef?.name}
+                        onChangeText={onNameChange}
+                        {...rest}
+                        placeholder={refeicao?.name}
                     />
-                    <SubText>
-                        Não
-                    </SubText>
-                </AnswerButton>
-            </SubContent>
 
-            <FooterButton>
-                <NewEditAddButton
-                    onPress={onSubmit}
-                    title="Cadastrar refeição"
-                    type="SECONDARY"
-                />
-            </FooterButton>
-        </Container>
+                    <SubText>
+                        Descrição
+                    </SubText>
+                    <InputDescription
+                        multiline={true}
+                        numberOfLines={10}
+                        ref={inputRef?.description}
+                        onChangeText={onDescriptionChange}
+                        {...rest}
+                        placeholder={refeicao?.description}
+                    />
+                    <View>
+                        <SubContent>
+                            <SubText>
+                                Data
+                            </SubText>
+                            <SubText>
+                                Hora
+                            </SubText>
+                        </SubContent>
+
+                        <SubContent>
+                            <InputDateHour
+                                ref={inputRef?.date}
+                                onChangeText={onDateChange}
+                                {...rest}
+                                placeholder={refeicao?.date}
+                                maxLength={8}
+                            />
+                            <InputDateHour
+                                ref={inputRef?.hour}
+                                onChangeText={onHourChange}
+                                {...rest}
+                                placeholder={refeicao?.hour}
+                            />
+                        </SubContent>
+                    </View>
+
+                    <SubText>
+                        Está dentro da dieta?
+                    </SubText>
+
+                    <SubContent>
+                        <AnswerButton
+                            type={selectedValue === "PRIMARY" ? "PRIMARY" : "DEFAULT"}
+                            onPress={() => onRadioChange("PRIMARY")}
+                        >
+                            <Option
+                                type="PRIMARY"
+                            />
+                            <SubText>
+                                Sim
+                            </SubText>
+                        </AnswerButton>
+
+                        <AnswerButton
+                            type={selectedValue === "SECONDARY" ? "SECONDARY" : "DEFAULT"}
+                            onPress={() => onRadioChange("SECONDARY")}
+                        >
+                            <Option
+                                type="SECONDARY"
+                            />
+                            <SubText>
+                                Não
+                            </SubText>
+                        </AnswerButton>
+                    </SubContent>
+
+                    <FooterButton>
+                        <NewEditAddButton
+                            onPress={onSubmit}
+                            title="Cadastrar refeição"
+                            type="SECONDARY"
+                        />
+                    </FooterButton>
+                </Container>
+            </ScrollView>
+        </KeyboardAvoidingView>
     );
 }

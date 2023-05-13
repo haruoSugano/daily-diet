@@ -1,10 +1,6 @@
-import styled, { css } from "styled-components/native";
+import styled from "styled-components/native";
 
 export type TypeStyleProps = "PRIMARY" | "SECONDARY" | "DEFAULT";
-
-type Props = {
-    type: TypeStyleProps
-}
 
 export const Container = styled.View`
     flex-direction: column;

@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components/native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { TouchableOpacity } from "react-native";
 
 export type TypeStyleProps = "PRIMARY" | "SECONDARY";
 
@@ -59,7 +58,7 @@ export const HairLine = styled.View`
 
     background-color: ${({ theme }) => theme.COLORS.GRAY_500};
 
-    margin-left: 1%;
+    margin-left: 5px;
 `;
 
 export const TextSectionList = styled.Text<Props>`
@@ -68,10 +67,10 @@ export const TextSectionList = styled.Text<Props>`
         font-family: ${type === "PRIMARY" ? theme.FONT_FAMILY.BOLD : theme.FONT_FAMILY.REGULAR};
     `}
 
-    width: ${({ type }) => type === "PRIMARY" ? 45  :  270}px;
+    width: ${({ type }) => type === "PRIMARY" ? 15  :  65}%;
     height: 20px;
 
-    margin-left: 2%;
+    margin-left: 15px;
 `;
 
 export const Status = styled.TouchableOpacity<Props>`

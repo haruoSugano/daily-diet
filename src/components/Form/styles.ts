@@ -51,10 +51,11 @@ export const InputDescription = styled(TextInput)`
 export const SubContent = styled.View`
     flex-direction: row;
     justify-content: space-between;
+    
 `;
 
 export const InputDateHour = styled(TextInput)`
-    width: 160px;
+    width: 47%;
     height: 46px;
     text-align: center;
 
@@ -70,7 +71,7 @@ export const AnswerButton = styled(TouchableOpacity)<Props>`
     justify-content: center;
     align-items: center;
 
-    width: 168px;
+    width: 47%;
     height: 48px;
 
     border-radius: 4px;
@@ -111,5 +112,5 @@ export const Option = styled.View<Props>`
 `;
 
 export const FooterButton = styled.View`
-  margin-top: 20%;
+  margin-top: 40px;
 `;

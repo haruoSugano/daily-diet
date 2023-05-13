@@ -1,25 +1,14 @@
-import React, { useState } from "react";
-import { Alert } from "react-native";
+import React, { useRef, useState } from "react";
+import { Alert, Keyboard, TouchableWithoutFeedback } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { v4 as uuidv4 } from 'uuid';
 
 import { Container, Content, TypeStyleProps } from "./styles";
 
 import { Title } from "@components/Title";
-import { TouchableOpacityProps } from "react-native";
 import { Form } from "@components/Form";
 import { AppError } from "@utils/AppError";
 import { refeicaCreate } from "@storage/refeicao/refeicaoCreate";
-import { RefeicaoStorageDTO } from "@storage/refeicao/RefeicaoStorageDTO";
-
-type Props = TouchableOpacityProps & {
-    name: string;
-    description: string;
-    date: string;
-    type?: TypeStyleProps;
-};
-
-type Refeicao = RefeicaoStorageDTO;
 
 export function Criacao() {
     const [nameRefeicao, setNameRefeicao] = useState("");
@@ -51,7 +40,7 @@ export function Criacao() {
                 default:
                     return Alert.alert("Nova refeição", "Por favor selecione se está dentro da dieta");
             }
-            
+
             await refeicaCreate(refeicao);
         } catch (error) {
             if (error instanceof AppError) {
@@ -68,22 +57,30 @@ export function Criacao() {
     }
 
     return (
-        <Container>
-            <Title
-                title="Nova refeição"
-                onPress={handleBackHome}
-            />
-            <Content>
-                <Form 
-                    onNameChange={setNameRefeicao}
-                    onDescriptionChange={setDescriptionRefeicao}
-                    onDateChange={setDateRefeicao}
-                    onHourChange={setHourRefeicao}
-                    onSubmit={handleNew}
-                    selectedValue={userOptions}
-                    onRadioChange={setUserOptions}
+        <TouchableWithoutFeedback
+            onPress={() => Keyboard.dismiss()}
+            accessible={false}
+        >
+            <Container>
+                <Title
+                    title="Nova refeição"
+                    onPress={handleBackHome}
                 />
-            </Content>
-        </Container>
+
+                <Content>
+
+                    <Form
+                        onNameChange={setNameRefeicao}
+                        onDescriptionChange={setDescriptionRefeicao}
+                        onDateChange={setDateRefeicao}
+                        onHourChange={setHourRefeicao}
+                        onSubmit={handleNew}
+                        selectedValue={userOptions}
+                        onRadioChange={setUserOptions}
+                    />
+
+                </Content>
+            </Container>
+        </TouchableWithoutFeedback >
     );
 }

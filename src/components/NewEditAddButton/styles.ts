@@ -1,12 +1,8 @@
-import styled, { css } from "styled-components/native";
+import styled from "styled-components/native";
 import { TouchableOpacity } from "react-native";
 import { Plus } from "phosphor-react-native";
 
 export type ButtonTypeStyleProps = "PRIMARY" | "SECONDARY";
-
-type Props = {
-    type?: ButtonTypeStyleProps;
-};
 
 export const Container = styled(TouchableOpacity)`
     flex-direction: row;
